@@ -12,11 +12,12 @@
 	<artifactId>tourismapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tourismapp</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Tourism app for interview</description>
 	<properties>
 		<java.version>19</java.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
