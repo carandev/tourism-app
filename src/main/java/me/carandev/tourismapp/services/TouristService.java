@@ -40,6 +40,25 @@ public class TouristService {
     return touristToDTO(touristSaved);
   }
 
+  public TouristDTO updateTourist(Long id, TouristDTO touristDto) {
+    Tourist tourist = touristRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Tourist", "id", id));
+
+    tourist.setName(touristDto.getName());
+    tourist.setBirthDate(touristDto.getBirthDate());
+    tourist.setIdentification(touristDto.getIdentification());
+    tourist.setDestination(cityRepository.findById(touristDto.getCityId())
+            .orElseThrow(() -> new ResourceNotFoundException("City", "id", touristDto.getCityId())));
+    tourist.setIdentificationType(touristDto.getIdentificationType());
+    tourist.setTravelFrequency(touristDto.getTravelFrequency());
+    tourist.setTravelBudget(touristDto.getTravelBudget());
+    tourist.setCard(touristDto.isCard());
+
+    Tourist touristSaved = touristRepository.save(tourist);
+
+    return touristToDTO(touristSaved);
+  }
+
   public void deleteTouristById(Long id) {
     touristRepository.deleteById(id);
   }
