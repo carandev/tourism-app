@@ -2,7 +2,10 @@ package me.carandev.tourismapp.controllers;
 
 import java.util.List;
 
+import me.carandev.tourismapp.dto.TouristDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +23,10 @@ public class TouristController {
   TouristService touristService;
 
   @PostMapping("/tourists")
-  public void addTourist(@RequestBody Tourist tourist) {
-    touristService.addTourist(tourist);
+  public ResponseEntity<TouristDTO> addTourist(@RequestBody TouristDTO tourist) {
+    TouristDTO touristSaved = touristService.addTourist(tourist);
+
+    return new ResponseEntity<>(touristSaved, HttpStatus.CREATED);
   }
 
   @GetMapping("/tourists")
