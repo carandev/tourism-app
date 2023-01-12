@@ -10,24 +10,24 @@ const CreateCities = () => {
   })
   const [_, setLocation] = useLocation()
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
-    fetch('http://localhost:8080/cities', {
+    const response = await fetch('http://localhost:8080/cities', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(city)
-    }).then(response => response.ok && setLocation('/cities'))
+    })
+
+    if (response.ok) setLocation('/cities')
   }
 
   const handleInputChange = event => {
-    let { name, value } = event.target
+    const { name, value } = event.target
 
     const newCity = { ...city }
-
-    if (name === 'population') value = parseInt(value)
 
     newCity[name] = value
 
