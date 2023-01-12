@@ -1,11 +1,9 @@
 package me.carandev.tourismapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cities")
@@ -18,4 +16,7 @@ public class City {
   private int population;
   private String touristAttraction;
   private String moreReservedHotel;
+  @OneToMany
+  @JoinColumn(name = "city_id", nullable = false)
+  private List<Travel> travels;
 }

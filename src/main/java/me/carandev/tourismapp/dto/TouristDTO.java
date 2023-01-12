@@ -14,5 +14,6 @@ public class TouristDTO {
   private int travelFrequency;
   private Long cityId;
   private double travelBudget;
+  private Date travelDate;
   private boolean card;
 }

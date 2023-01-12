@@ -38,6 +38,20 @@ public class TouristController {
     return new ResponseEntity<>(tourists, HttpStatus.OK);
   }
 
+  @GetMapping("/tourists/{date}/{cityId}")
+  public ResponseEntity<List<TouristDTO>> findTouristByDateAndDestination(@PathVariable String date, @PathVariable Long cityId) {
+    List<TouristDTO> tourists = touristService.checkDateTravel(cityId, date);
+
+    return new ResponseEntity<>(tourists, HttpStatus.OK);
+  }
+
+  @GetMapping("/tourists/{cityId}")
+public ResponseEntity<List<TouristDTO>> findTouristByDestination(@PathVariable Long cityId) {
+    List<TouristDTO> tourists = touristService.findTouristByDestination(cityId);
+
+    return new ResponseEntity<>(tourists, HttpStatus.OK);
+  }
+
   @DeleteMapping("/tourists/{id}")
   public ResponseEntity<String> deleteTourist(@PathVariable Long id) {
     touristService.deleteTouristById(id);

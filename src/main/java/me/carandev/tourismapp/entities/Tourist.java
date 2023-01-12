@@ -1,14 +1,9 @@
 package me.carandev.tourismapp.entities;
 
 import java.sql.Date;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -23,9 +18,10 @@ public class Tourist {
   private String identification;
   private String identificationType;
   private int travelFrequency;
-  @OneToOne
-  @JoinColumn(name = "city_id", nullable = false)
-  private City destination;
   private double travelBudget;
+  private Date travelDate;
+  @OneToMany
+  @JoinColumn(name = "tourist_id", nullable = false)
+  private List<Travel> travels;
   private boolean card;
 }

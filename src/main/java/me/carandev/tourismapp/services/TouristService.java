@@ -1,5 +1,6 @@
 package me.carandev.tourismapp.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import me.carandev.tourismapp.exception.ResourceNotFoundException;
@@ -31,6 +32,7 @@ public class TouristService {
     City city = cityRepository.findById(tourist.getCityId())
             .orElseThrow(() -> new ResourceNotFoundException("City", "id", tourist.getCityId()));
 
+
     Tourist newTourist = dtoToTourist(tourist);
 
     newTourist.setDestination(city);
@@ -38,6 +40,27 @@ public class TouristService {
     Tourist touristSaved = touristRepository.save(newTourist);
 
     return touristToDTO(touristSaved);
+  }
+
+  public List<TouristDTO> checkDateTravel(Long cityId, String date){
+    City city = cityRepository.findById(cityId)
+            .orElseThrow(() -> new ResourceNotFoundException("City", "id", cityId));
+
+    Date travelDate = Date.valueOf(date);
+
+    List<Tourist> tourists = touristRepository.findTouristsByDestinationAndTravelDate(city, travelDate);
+
+    return tourists.stream().map(this::touristToDTO).toList();
+
+  }
+
+  public List<TouristDTO> findTouristByDestination(Long cityId){
+    City city = cityRepository.findById(cityId)
+            .orElseThrow(() -> new ResourceNotFoundException("City", "id", cityId));
+
+    List<Tourist> tourists = touristRepository.findTouristByDestination(city);
+
+    return tourists.stream().map(this::touristToDTO).toList();
   }
 
   public TouristDTO updateTourist(Long id, TouristDTO touristDto) {
