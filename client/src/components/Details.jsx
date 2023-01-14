@@ -35,9 +35,16 @@ const Details = ({ id, details, setShowDetails }) => {
       <button>Editar</button>
       <button onClick={handleDelete}>Eliminar</button>
       {
-        travels.map(travel => <TravelCard key={travel.id} travel={travel}/>)
+        details === 'tourists' && (
+              <div>
+                {
+                  travels.map(travel => <TravelCard key={travel.id} travel={travel}/>)
+                }
+                <a href={`/create/travel/${id}`}>Agregar viaje</a>
+              </div>
+          )
       }
-      <a href={`/create/travel/${id}`}>Agregar viaje</a>
+
     </div>
   )
 }
