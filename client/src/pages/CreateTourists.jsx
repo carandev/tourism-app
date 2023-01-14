@@ -38,13 +38,13 @@ const CreateTourists = () => {
   const handleInputChange = event => {
     let { name, value } = event.target
 
-    const newCity = { ...tourist }
+    const newTourist = { ...tourist }
 
     if (name === 'card') value = event.target.checked
 
-    newCity[name] = value
+    newTourist[name] = value
 
-    setTourist(newCity)
+    setTourist(newTourist)
   }
 
   return (

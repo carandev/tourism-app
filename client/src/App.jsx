@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'wouter'
 
-import { Home, Tourists, Cities, CreateCities, CreateTourists } from './pages'
+import { Home, Tourists, Cities, CreateCities, CreateTourists, CreateTravel } from './pages'
 
 function App () {
   return (
@@ -11,6 +11,7 @@ function App () {
       <Route component={Cities} path='/cities' />
       <Route component={CreateCities} path='/create/city' />
       <Route component={CreateTourists} path='/create/tourist' />
+      <Route component={CreateTravel} path='/create/travel/:id' />
     </>
   )
 }
