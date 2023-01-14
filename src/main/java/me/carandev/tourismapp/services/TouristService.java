@@ -1,6 +1,5 @@
 package me.carandev.tourismapp.services;
 
-import java.sql.Date;
 import java.util.List;
 
 import me.carandev.tourismapp.exception.ResourceNotFoundException;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.carandev.tourismapp.dto.TouristDTO;
-import me.carandev.tourismapp.entities.City;
 import me.carandev.tourismapp.entities.Tourist;
 import me.carandev.tourismapp.repositories.CityRepository;
 import me.carandev.tourismapp.repositories.TouristRepository;
@@ -29,38 +27,11 @@ public class TouristService {
   }
 
   public TouristDTO addTourist(TouristDTO tourist) {
-    City city = cityRepository.findById(tourist.getCityId())
-            .orElseThrow(() -> new ResourceNotFoundException("City", "id", tourist.getCityId()));
-
-
     Tourist newTourist = dtoToTourist(tourist);
-
-    newTourist.setDestination(city);
 
     Tourist touristSaved = touristRepository.save(newTourist);
 
     return touristToDTO(touristSaved);
-  }
-
-  public List<TouristDTO> checkDateTravel(Long cityId, String date){
-    City city = cityRepository.findById(cityId)
-            .orElseThrow(() -> new ResourceNotFoundException("City", "id", cityId));
-
-    Date travelDate = Date.valueOf(date);
-
-    List<Tourist> tourists = touristRepository.findTouristsByDestinationAndTravelDate(city, travelDate);
-
-    return tourists.stream().map(this::touristToDTO).toList();
-
-  }
-
-  public List<TouristDTO> findTouristByDestination(Long cityId){
-    City city = cityRepository.findById(cityId)
-            .orElseThrow(() -> new ResourceNotFoundException("City", "id", cityId));
-
-    List<Tourist> tourists = touristRepository.findTouristByDestination(city);
-
-    return tourists.stream().map(this::touristToDTO).toList();
   }
 
   public TouristDTO updateTourist(Long id, TouristDTO touristDto) {
@@ -70,8 +41,6 @@ public class TouristService {
     tourist.setName(touristDto.getName());
     tourist.setBirthDate(touristDto.getBirthDate());
     tourist.setIdentification(touristDto.getIdentification());
-    tourist.setDestination(cityRepository.findById(touristDto.getCityId())
-            .orElseThrow(() -> new ResourceNotFoundException("City", "id", touristDto.getCityId())));
     tourist.setIdentificationType(touristDto.getIdentificationType());
     tourist.setTravelFrequency(touristDto.getTravelFrequency());
     tourist.setTravelBudget(touristDto.getTravelBudget());
@@ -94,7 +63,6 @@ public class TouristService {
     touristDTO.setIdentification(tourist.getIdentification());
     touristDTO.setIdentificationType(tourist.getIdentificationType());
     touristDTO.setTravelFrequency(tourist.getTravelFrequency());
-    touristDTO.setCityId(tourist.getDestination().getId());
     touristDTO.setTravelBudget(tourist.getTravelBudget());
     touristDTO.setCard(tourist.isCard());
 

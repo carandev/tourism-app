@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import me.carandev.tourismapp.entities.City;
 import me.carandev.tourismapp.services.CityService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173/")
 @RestController
 public class CityController {
   @Autowired
@@ -31,11 +31,18 @@ public class CityController {
   }
 
   @DeleteMapping(value = "/cities/{id}")
-    public ResponseEntity<String> deleteCity(@PathVariable Long id) {
-        cityService.deleteCityById(id);
+  public ResponseEntity<String> deleteCity(@PathVariable Long id) {
+    cityService.deleteCityById(id);
 
-        return new ResponseEntity<>("City deleted successfully",HttpStatus.OK);
-    }
+    return new ResponseEntity<>("City deleted successfully", HttpStatus.OK);
+  }
+
+  @GetMapping(value = "/cities/{id}")
+  public ResponseEntity<City> getCity(@PathVariable Long id) {
+    City city = cityService.findCityById(id);
+
+    return new ResponseEntity<>(city, HttpStatus.OK);
+  }
 
   @GetMapping(value = "/cities")
   public ResponseEntity<List<City>> getAllCities() {

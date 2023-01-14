@@ -19,9 +19,5 @@ public class Tourist {
   private String identificationType;
   private int travelFrequency;
   private double travelBudget;
-  private Date travelDate;
-  @OneToMany
-  @JoinColumn(name = "tourist_id", nullable = false)
-  private List<Travel> travels;
   private boolean card;
 }

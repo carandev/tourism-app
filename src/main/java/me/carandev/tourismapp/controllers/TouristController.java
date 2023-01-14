@@ -5,13 +5,14 @@ import java.util.List;
 import me.carandev.tourismapp.dto.TouristDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import me.carandev.tourismapp.entities.Tourist;
 import me.carandev.tourismapp.services.TouristService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173/")
 @RestController
 public class TouristController {
 
@@ -38,18 +39,11 @@ public class TouristController {
     return new ResponseEntity<>(tourists, HttpStatus.OK);
   }
 
-  @GetMapping("/tourists/{date}/{cityId}")
-  public ResponseEntity<List<TouristDTO>> findTouristByDateAndDestination(@PathVariable String date, @PathVariable Long cityId) {
-    List<TouristDTO> tourists = touristService.checkDateTravel(cityId, date);
+  @GetMapping("/tourists/{id}")
+  public ResponseEntity<Tourist> getTourist(@PathVariable Long id) {
+    Tourist tourist = touristService.findTouristById(id);
 
-    return new ResponseEntity<>(tourists, HttpStatus.OK);
-  }
-
-  @GetMapping("/tourists/{cityId}")
-public ResponseEntity<List<TouristDTO>> findTouristByDestination(@PathVariable Long cityId) {
-    List<TouristDTO> tourists = touristService.findTouristByDestination(cityId);
-
-    return new ResponseEntity<>(tourists, HttpStatus.OK);
+    return new ResponseEntity<>(tourist, HttpStatus.OK);
   }
 
   @DeleteMapping("/tourists/{id}")

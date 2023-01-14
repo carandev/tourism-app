@@ -16,7 +16,4 @@ public class City {
   private int population;
   private String touristAttraction;
   private String moreReservedHotel;
-  @OneToMany
-  @JoinColumn(name = "city_id", nullable = false)
-  private List<Travel> travels;
 }

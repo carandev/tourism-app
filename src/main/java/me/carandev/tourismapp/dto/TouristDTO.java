@@ -12,8 +12,6 @@ public class TouristDTO {
   private String identification;
   private String identificationType;
   private int travelFrequency;
-  private Long cityId;
   private double travelBudget;
-  private Date travelDate;
   private boolean card;
 }

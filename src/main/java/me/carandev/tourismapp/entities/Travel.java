@@ -14,10 +14,8 @@ public class Travel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
     private City destination;
     @ManyToMany
-    @JoinColumn(name = "tourist_id", nullable = false)
     private List<Tourist> tourists;
     private Date travelDate;
 }

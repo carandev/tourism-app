@@ -28,9 +28,9 @@ public class CityService {
     return cityRepository.save(city);
   }
 
-  public City updateCity(City city, Long id){
+  public City updateCity(City city, Long id) {
     City cityToUpdate = cityRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("City", "id", id));
+        .orElseThrow(() -> new ResourceNotFoundException("City", "id", id));
 
     cityToUpdate.setName(city.getName());
     cityToUpdate.setPopulation(city.getPopulation());
